@@ -18,6 +18,7 @@ namespace Exercise3.Controllers
         public ActionResult display(string ip, int port)
         {
             return View();
+
         }
     }
 
