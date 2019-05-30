@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exercise3.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,8 +18,10 @@ namespace Exercise3.Controllers
         [HttpGet]
         public ActionResult display(string ip, int port)
         {
+            Simulator.Instance.ConnetAsClient(ip, port);
+            ViewBag.Lat = Simulator.Instance.AskLat();
+            ViewBag.Lon = Simulator.Instance.AskLon();
             return View();
-
         }
     }
 

@@ -3,9 +3,31 @@
     ViewBag.Title = "display";
 }
 
-<body>
-    <img src="~/Content/images/export-map-share.png" style="background-size: 100% 100%; background-attachment:fixed; overflow:hidden;
-    width:100%; height:100%;" />
+<body background="~/Content/images/export-map-share.png" style="background-size:100% 100%; background-attachment:fixed">
+    <canvas id="myCanvas" style="background-size:100% 100% "></canvas>
+    <script>
+        var dim = [document.documentElement.clientWidth, document.documentElement.clientHeight];
+        var c = document.getElementById("myCanvas");
+        c.width = dim[0];
+        c.height = dim[1];
+        var lon = @ViewBag.Lon;
+        var lat = @ViewBag.Lat;
+        var center_x = c.width / 2;
+        var center_y = c.height / 2;
+        var lonNorm = center_x + (lon * (c.clientWidth / 360));
+        var latNorm = center_y + (lat * (c.clientWidth / 180));
+
+
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(lonNorm, latNorm, 6, 0, 2 * Math.PI);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
+    </script>
+
 
 </body>
 
