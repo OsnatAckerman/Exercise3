@@ -13,14 +13,20 @@ namespace Exercise3
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute("displayFour", "display/{ip}/{port}/{second}",
+                        defaults: new { controller = "First", action = "displayFour" });
+
             routes.MapRoute("display", "display/{ip}/{port}",
             defaults: new { controller = "First", action = "display" });
+
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "First", action = "Index", id = UrlParameter.Optional }
             );
+          
 
         }
     }
