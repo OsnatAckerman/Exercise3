@@ -12,12 +12,18 @@
         c.height = dim[1];
         var lon = @ViewBag.Lon;
         var lat = @ViewBag.Lat;
-        var center_x = c.width / 2;
-        var center_y = c.height / 2;
-        var lonNorm = center_x + (lon * (c.clientWidth / 360));
-        var latNorm = center_y + (lat * (c.clientWidth / 180));
-
-
+        alert(lon);
+        alert(lat);
+        var x;
+        var y;
+        x = (c.width / 360);
+        x = x * (lon + 180);
+        y = (c.height / 180);
+        y = y * (lat - 90);
+        x = Math.abs(x);
+        y = Math.abs(y);
+        lonNorm = x;
+        latNorm = y;
         var ctx = c.getContext("2d");
         ctx.beginPath();
         ctx.arc(lonNorm, latNorm, 6, 0, 2 * Math.PI);
