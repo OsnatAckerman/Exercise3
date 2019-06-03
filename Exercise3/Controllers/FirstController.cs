@@ -13,7 +13,6 @@ namespace Exercise3.Controllers
 {
     public class FirstController : Controller
     {
-        public const string SCENARIO_FILE = "~/App_Data/{0}.txt";
         // GET: First
         public ActionResult Index()
         {
