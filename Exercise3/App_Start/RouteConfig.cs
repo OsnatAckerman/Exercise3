@@ -13,8 +13,8 @@ namespace Exercise3
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("display", "display/{ip}/{port}",
-            defaults: new { controller = "First", action = "display" });
+            routes.MapRoute("display_options", "display/{ip}/{port}",
+            defaults: new { controller = "First", action = "display_options" });
 
             routes.MapRoute("displayFour", "display/{ip}/{port}/{second}",
                         defaults: new { controller = "First", action = "displayFour" });

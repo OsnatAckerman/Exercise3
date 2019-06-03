@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -18,6 +19,20 @@ namespace Exercise3.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult display_options(string ip, int port)
+        {
+            IPAddress address;
+            if(IPAddress.TryParse(ip, out address))
+            {
+                return display(ip, port);
+            } else
+            {
+                return readFromFile(ip, port);
+            }
+        }
+
 
         [HttpGet]
         public ActionResult display(string ip, int port)
@@ -49,6 +64,13 @@ namespace Exercise3.Controllers
             Session["duration"] = duration;
             return View();
         }
+
+        [HttpGet]
+        public ActionResult readFromFile(string file, int second)
+        {
+            return View();
+        }
+
 
 
 
