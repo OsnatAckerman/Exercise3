@@ -6,6 +6,65 @@
 <body background="~/Content/images/export-map-share.png" style="background-size:100% 100%; background-attachment:fixed">
     <canvas id="myCanvas" style="background-size:100% 100% "></canvas>
     <script>
+        var dim = [document.documentElement.clientWidth, document.documentElement.clientHeight];
+        var c = document.getElementById("myCanvas");
+        c.width = dim[0];
+        c.height = dim[1];
+        var ctx = c.getContext("2d");
 
+        var IntervalTime = @Session["time"] * 1000;
+        var duration = @Session["duration"] * 1000;
+        var isFirst = 0;
+
+        myTimer = (function () {
+            $.post("@Url.Action("GetData")").done(function (xml) {
+                var xmlDoc = $.parseXML(xml),
+                    $xml = $(xmlDoc),
+                    lon = $xml.find("Lon").text();
+                lat = $xml.find("Lat").text();
+                lon = parseFloat(lon);
+                lat = parseFloat(lat);
+                var x = (c.width / 360);
+                x = x * (lon + 180);
+                var y = (c.height / 180);
+                y = y * (lat - 90);
+                x = Math.abs(x);
+                y = Math.abs(y);
+                lonNorm = x;
+                latNorm = y;
+                if (isFirst == 0) {
+                    isFirst = 1;
+                    ctx.beginPath();
+                    ctx.arc(lonNorm, latNorm, 6, 0, 2 * Math.PI);
+                    ctx.fillStyle = 'red';
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.closePath();
+                    lastLat = latNorm;
+                    lastLon = lonNorm;
+
+                } else {
+                    ctx.beginPath();
+                    ctx.lineWidth = 2;
+                    ctx.moveTo(lastLon, lastLat);
+                    ctx.lineTo(lonNorm, latNorm);
+                    lastLat = latNorm;
+                    lastLon = lonNorm;
+                    ctx.strokeStyle = "red";
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            });
+        });
+
+        stop = (function () {
+            clearInterval(inter);
+            //alert("Done:)");
+        });
+
+        setTimeout(stop, duration);
+        var inter = setInterval(myTimer, IntervalTime);
+        myTimer();
+        
     </script>
 </body>
