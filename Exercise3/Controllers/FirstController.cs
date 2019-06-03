@@ -68,10 +68,30 @@ namespace Exercise3.Controllers
         [HttpGet]
         public ActionResult readFromFile(string file, int second)
         {
+            Session["time"] = second;
+            string path = AppDomain.CurrentDomain.BaseDirectory + @"\App_Data/" + file + ".txt";
+            string[] lines = System.IO.File.ReadAllLines(path);
+            Session["lines"] = lines;
             return View();
         }
 
-
+        [HttpPost]
+        public string DataFromFile()
+        {
+            string[] lines =(string[]) @Session["lines"];
+            if(lines.Length == 0)
+            {
+                return ToXml(-1000, -1000);
+            }
+            string line = lines[0];
+            lines = lines.Skip(1).ToArray();
+            Session["lines"] = lines;
+            string[] values = line.Split(',');
+            double lon = Convert.ToDouble(values[0]);
+            double lat = Convert.ToDouble(values[1]);
+            lines = lines.Skip(1).ToArray();
+            return ToXml(lat, lon);
+        }
 
 
         [HttpPost]
