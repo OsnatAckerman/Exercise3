@@ -12,11 +12,11 @@
         c.height = dim[1];
         var ctx = c.getContext("2d");
 
-        var IntervalTime = @ViewBag.time * 1000;
-        var duration = @ViewBag.duration * 1000;
+        var IntervalTime = @Session["time"] * 1000;
+        var duration = @Session["duration"] * 1000;
         var isFirst = 0;
 
-        myTimer() = (function () {
+        myTimer = (function () {
             $.post("@Url.Action("GetData")").done(function (xml) {
                 var xmlDoc = $.parseXML(xml),
                     $xml = $(xmlDoc),
@@ -62,7 +62,7 @@
             alert("Done:)");
         });
 
-        setTimeOut(stop, duration);
+        setTimeout(stop, duration);
         var inter = setInterval(myTimer, IntervalTime);
         myTimer();
         

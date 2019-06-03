@@ -13,7 +13,6 @@ namespace Exercise3.Controllers
 {
     public class FirstController : Controller
     {
-        public const string SCENARIO_FILE = "~/App_Data/{0}.txt";
         // GET: First
         public ActionResult Index()
         {
@@ -45,9 +44,9 @@ namespace Exercise3.Controllers
             ViewBag.ip = ip;
             ViewBag.port = port;
             Simulator.Instance.ConnetAsClient(ip, port);
-            ViewBag.time = second;
-            ViewBag.duration = duration;
-            ViewBag.file = file;
+            Session["file"] = file;
+            Session["time"] = second;
+            Session["duration"] = duration;
             return View();
         }
 
@@ -64,7 +63,7 @@ namespace Exercise3.Controllers
 
 
         [HttpPost]
-        public string GetDate()
+        public string GetData()
         {
 
             double Lat = Simulator.Instance.Lat;
@@ -72,8 +71,8 @@ namespace Exercise3.Controllers
             double Throttle = Simulator.Instance.Throttle;
             double Rudder = Simulator.Instance.Rudder;
 
-            string fileName = (string)ViewBag.file;
-            string path = AppDomain.CurrentDomain.BaseDirectory + @"\" + fileName + ".txt";
+            string fileName = (string)Session["file"];
+            string path = AppDomain.CurrentDomain.BaseDirectory +@"\App_Data/" + fileName + ".txt";
             using (StreamWriter streamWriter = System.IO.File.AppendText(path))
             {
                 streamWriter.WriteLine(Convert.ToString(Lon) + ',' + Convert.ToString(Lat)
