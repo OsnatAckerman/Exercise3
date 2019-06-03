@@ -37,6 +37,10 @@ namespace Exercise3.Controllers
         [HttpGet]
         public ActionResult display(string ip, int port)
         {
+            if (Simulator.Instance.IsConnected)
+            {
+                Simulator.Instance.DisConnect();
+            }
             Simulator.Instance.ConnetAsClient(ip, port);
             ViewBag.Lat = Simulator.Instance.Lat;
             ViewBag.Lon = Simulator.Instance.Lon;
@@ -48,6 +52,10 @@ namespace Exercise3.Controllers
             ViewBag.time = second;
             ViewBag.ip = ip;
             ViewBag.port = port;
+            if (Simulator.Instance.IsConnected)
+            {
+                Simulator.Instance.DisConnect();
+            }
             Simulator.Instance.ConnetAsClient(ip, port);
             Session["time"] = second;
             return View();
@@ -58,6 +66,10 @@ namespace Exercise3.Controllers
         {
             ViewBag.ip = ip;
             ViewBag.port = port;
+            if (Simulator.Instance.IsConnected)
+            {
+                Simulator.Instance.DisConnect();
+            }
             Simulator.Instance.ConnetAsClient(ip, port);
             Session["file"] = file;
             Session["time"] = second;

@@ -10,10 +10,12 @@
         var c = document.getElementById("myCanvas");
         c.width = dim[0];
         c.height = dim[1];
+        document.body.scrollTop = 0; // <-- pull the page back up to the top
+        document.body.style.overflow = 'hidden';
         var lon = @ViewBag.Lon;
         var lat = @ViewBag.Lat;
-        //var lat = 0;
-        //var lon = 0;
+        //var lat = 90;
+        //var lon = 180;
         var x;
         var y;
         x = (c.width / 360);

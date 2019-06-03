@@ -10,9 +10,11 @@
         var c = document.getElementById("myCanvas");
         var ctx = c.getContext("2d");
         c.width = dim[0];
-        c.height = dim[1];
+            c.height = dim[1];
+        document.body.scrollTop = 0; // <-- pull the page back up to the top
+        document.body.style.overflow = 'hidden';
         var IntervalTime = @Session["time"] * 1000
-        alert(IntervalTime);
+       // alert(IntervalTime);
         var lastLon;
         var lastLat;
         var isFirst = 0;
