@@ -27,7 +27,7 @@
                 var x = (c.width / 360);
                 x = x * (lon + 180);
                 var y = (c.height / 180);
-                y = y * (lat - 90);
+                y = y * (lat + 90);
                 x = Math.abs(x);
                 y = Math.abs(y);
                 lonNorm = x;

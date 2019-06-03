@@ -40,7 +40,7 @@ namespace Exercise3.Controllers
             Simulator.Instance.ConnetAsClient(ip, port);
             ViewBag.Lat = Simulator.Instance.Lat;
             ViewBag.Lon = Simulator.Instance.Lon;
-            return View();
+            return View("display");
         }
         [HttpGet]
         public ActionResult displayFour(string ip, int port,int second)
@@ -72,7 +72,7 @@ namespace Exercise3.Controllers
             string path = AppDomain.CurrentDomain.BaseDirectory + @"\App_Data/" + file + ".txt";
             string[] lines = System.IO.File.ReadAllLines(path);
             Session["lines"] = lines;
-            return View();
+            return View("readFromFile");
         }
 
         [HttpPost]

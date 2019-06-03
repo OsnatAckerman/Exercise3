@@ -12,12 +12,14 @@
         c.height = dim[1];
         var lon = @ViewBag.Lon;
         var lat = @ViewBag.Lat;
+        //var lat = 0;
+        //var lon = 0;
         var x;
         var y;
         x = (c.width / 360);
         x = x * (lon + 180);
         y = (c.height / 180);
-        y = y * (lat - 90);
+        y = y * (lat + 90);
         x = Math.abs(x);
         y = Math.abs(y);
         lonNorm = x;
