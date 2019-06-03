@@ -124,6 +124,7 @@
     <Content Include="Views\First\Index.cshtml" />
     <Content Include="Views\First\displayFour.cshtml" />
     <Content Include="Views\First\save.cshtml" />
+    <Content Include="Views\First\readFromFile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
