@@ -12,7 +12,8 @@ namespace Exercise3.Models
         TcpClient client;
         string latCommand = "get /position/latitude-deg\r\n";
         string lonCommand = "get /position/longitude-deg\r\n";
-
+        string rudderCommand = "get /controls/flight/rudder\r\n";
+        string throttleCommand = "get /controls/engines/current-engine/throttle\r\n";
         /// singelton
         private static Simulator m_Instance = null;
         public static Simulator Instance
@@ -61,6 +62,29 @@ namespace Exercise3.Models
             }
         }
 
+        public double Rudder
+        {
+            get
+            {
+                return GetValFromSimulator(rudderCommand);
+            }
+            set
+            {
+                Rudder = value;
+            }
+        }
+
+        public double Throttle
+        {
+            get
+            {
+                return GetValFromSimulator(throttleCommand);
+            }
+            set
+            {
+                Throttle = value;
+            }
+        }
 
         /* connect to flight simulater as client on the setted IP and port */
         public void ConnetAsClient(string IP, int port)

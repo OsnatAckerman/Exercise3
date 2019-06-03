@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -12,6 +13,7 @@ namespace Exercise3.Controllers
 {
     public class FirstController : Controller
     {
+        public const string SCENARIO_FILE = "~/App_Data/{0}.txt";
         // GET: First
         public ActionResult Index()
         {
@@ -58,6 +60,26 @@ namespace Exercise3.Controllers
             double Lat = Simulator.Instance.Lat;
             double Lon = Simulator.Instance.Lon;
             return ToXml(Lat,Lon);
+        }
+
+
+        [HttpPost]
+        public string GetDate()
+        {
+
+            double Lat = Simulator.Instance.Lat;
+            double Lon = Simulator.Instance.Lon;
+            double Throttle = Simulator.Instance.Throttle;
+            double Rudder = Simulator.Instance.Rudder;
+
+            string fileName = (string)ViewBag.file;
+            string path = AppDomain.CurrentDomain.BaseDirectory + @"\" + fileName + ".txt";
+            using (StreamWriter streamWriter = System.IO.File.AppendText(path))
+            {
+                streamWriter.WriteLine(Convert.ToString(Lon) + ',' + Convert.ToString(Lat)
+                            + ',' + Convert.ToString(Throttle) + ',' + Convert.ToString(Rudder));
+            }
+            return ToXml(Lat, Lon);
         }
 
         private string ToXml(double lat, double lon)
