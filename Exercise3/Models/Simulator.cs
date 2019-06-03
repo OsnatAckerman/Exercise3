@@ -42,14 +42,23 @@ namespace Exercise3.Models
 
         public double Lat
         {
-            get;
-            set;
+            get { return GetValFromSimulator(latCommand); }
+            set
+            {
+                Lat = value;
+            }
         }
 
         public double Lon
         {
-            get;
-            set;
+            get
+            {
+                return GetValFromSimulator(lonCommand);
+            }
+            set
+            {
+                Lon = value;
+            }
         }
 
 

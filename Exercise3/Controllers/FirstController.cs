@@ -22,8 +22,8 @@ namespace Exercise3.Controllers
         public ActionResult display(string ip, int port)
         {
             Simulator.Instance.ConnetAsClient(ip, port);
-            ViewBag.Lat = Simulator.Instance.AskLat();
-            ViewBag.Lon = Simulator.Instance.AskLon();
+            ViewBag.Lat = Simulator.Instance.Lat;
+            ViewBag.Lon = Simulator.Instance.Lon;
             return View();
         }
         [HttpGet]
@@ -42,8 +42,8 @@ namespace Exercise3.Controllers
         public string GetLonLat()
         {
 
-            double Lat = Simulator.Instance.AskLat();
-            double Lon = Simulator.Instance.AskLon();
+            double Lat = Simulator.Instance.Lat;
+            double Lon = Simulator.Instance.Lon;
             return ToXml(Lat,Lon);
         }
 
