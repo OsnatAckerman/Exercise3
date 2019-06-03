@@ -38,6 +38,21 @@ namespace Exercise3.Controllers
             Session["time"] = second;
             return View();
         }
+
+        [HttpGet]
+        public ActionResult save(string ip, int port, int second, int duration, string file)
+        {
+            ViewBag.ip = ip;
+            ViewBag.port = port;
+            Simulator.Instance.ConnetAsClient(ip, port);
+            ViewBag.time = second;
+            ViewBag.duration = duration;
+            ViewBag.file = file;
+            return View();
+        }
+
+
+
         [HttpPost]
         public string GetLonLat()
         {

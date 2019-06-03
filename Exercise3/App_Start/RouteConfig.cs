@@ -19,7 +19,10 @@ namespace Exercise3
             routes.MapRoute("displayFour", "display/{ip}/{port}/{second}",
                         defaults: new { controller = "First", action = "displayFour" });
 
-           
+            routes.MapRoute("save", "save/{ip}/{port}/{second}/{duration}/{file}",
+                        defaults: new { controller = "First", action = "save" });
+
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
