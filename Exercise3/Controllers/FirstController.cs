@@ -28,9 +28,7 @@ namespace Exercise3.Controllers
         }
         [HttpGet]
         public ActionResult displayFour(string ip, int port,int second)
-
-        {
-            
+        {   
             ViewBag.time = second;
             ViewBag.ip = ip;
             ViewBag.port = port;
