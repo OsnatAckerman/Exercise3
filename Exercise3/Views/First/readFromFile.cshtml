@@ -2,48 +2,51 @@
 @{
     ViewBag.Title = "readFromFile";
 }
-
+    
     <body background="~/Content/images/export-map-share.png" style="background-size:100% 100%; background-attachment:fixed">
         <canvas id="myCanvas" style="background-size:100% 100% "></canvas>
         <script>
+        //size of window to size of canvas
         var dim = [document.documentElement.clientWidth, document.documentElement.clientHeight];
         var c = document.getElementById("myCanvas");
-        var ctx = c.getContext("2d");
         c.width = dim[0];
-            c.height = dim[1];
+        c.height = dim[1];
         document.body.scrollTop = 0; // <-- pull the page back up to the top
         document.body.style.overflow = 'hidden';
+        //for drawing
+        var ctx = c.getContext("2d");
+        //to milliseconds
         var IntervalTime = @Session["time"] * 1000
-       // alert(IntervalTime);
         var lastLon;
         var lastLat;
         var isFirst = 0;
-         myTimer = (function () {
-          $.post("@Url.Action("DataFromFile")").done(function (xml) {
-            var xmlDoc = $.parseXML( xml ),
+         //function to activate each intervalTime
+            myTimer = (function () {
+             //post request of lon and lat from simulator
+                $.post("@Url.Action("DataFromFile")").done(function (xml) {
+                 //extract data from xml
+                var xmlDoc = $.parseXML( xml ),
                 $xml = $(xmlDoc),
-            lon = $xml.find("Lon").text();
-            lat = $xml.find("Lat").text();
-            lon = parseFloat(lon);
-            lat = parseFloat(lat);
-            var x;
-            var y;
+                lon = $xml.find("Lon").text();
+                lat = $xml.find("Lat").text();
+                lon = parseFloat(lon);
+                lat = parseFloat(lat);
 
-            x = (c.width / 360);
-            x = x * (lon + 180);
-
-            y = (c.height / 180);
-            y = y * (lat + 90);
-
-            x = Math.abs(x);
-            y = Math.abs(y);
-
-            lonNorm = x;
-            latNorm = y;
+                //norm the values from lon lat to canvas size.
+                var x = (c.width / 360);
+                x = x * (lon + 180);
+                var y = (c.height / 180);
+                y = y * (lat + 90);
+                x = Math.abs(x);
+                y = Math.abs(y);
+                lonNorm = x;
+                latNorm = y;
+              //when finishing reading all lines, stop interval.
               if ((lat == -1000) || (lat == -1000)) {
                   alert("Done Mission");
                   clearInterval(interval);
               } else {
+                  //if first time, draw circle, else draw line from last position to current posittion
                   if (isFirst == 0) {
                       isFirst = 1;
                       ctx.beginPath();

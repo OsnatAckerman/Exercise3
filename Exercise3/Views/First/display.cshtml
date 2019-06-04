@@ -6,26 +6,29 @@
 <body background="~/Content/images/export-map-share.png" style="background-size:100% 100%; background-attachment:fixed">
     <canvas id="myCanvas" style="background-size:100% 100% "></canvas>
     <script>
+        //size of window to size of canvas
         var dim = [document.documentElement.clientWidth, document.documentElement.clientHeight];
         var c = document.getElementById("myCanvas");
         c.width = dim[0];
         c.height = dim[1];
         document.body.scrollTop = 0; // <-- pull the page back up to the top
         document.body.style.overflow = 'hidden';
+        //get lon lat values
         var lon = @ViewBag.Lon;
         var lat = @ViewBag.Lat;
         //var lat = 90;
         //var lon = 180;
-        var x;
-        var y;
-        x = (c.width / 360);
+
+        //norm the values from lon lat to canvas size.
+        var x = (c.width / 360);
         x = x * (lon + 180);
-        y = (c.height / 180);
+        var y = (c.height / 180);
         y = y * (lat + 90);
         x = Math.abs(x);
         y = Math.abs(y);
         lonNorm = x;
         latNorm = y;
+        //draw dot
         var ctx = c.getContext("2d");
         ctx.beginPath();
         ctx.arc(lonNorm, latNorm, 6, 0, 2 * Math.PI);

@@ -6,26 +6,31 @@
 <body background="~/Content/images/export-map-share.png" style="background-size:100% 100%; background-attachment:fixed">
     <canvas id="myCanvas" style="background-size:100% 100% "></canvas>
     <script>
+        //size of window to size of canvas
         var dim = [document.documentElement.clientWidth, document.documentElement.clientHeight];
         var c = document.getElementById("myCanvas");
         c.width = dim[0];
         c.height = dim[1];
         document.body.scrollTop = 0; // <-- pull the page back up to the top
         document.body.style.overflow = 'hidden';
+        //for drawing
         var ctx = c.getContext("2d");
-
+        //to milliseconds
         var IntervalTime = @Session["time"] * 1000;
         var duration = @Session["duration"] * 1000;
         var isFirst = 0;
-
+        //function to activate each interval time
         myTimer = (function () {
+            //post request for getting all 4 values from simulator
             $.post("@Url.Action("GetData")").done(function (xml) {
+                //extract data from xml
                 var xmlDoc = $.parseXML(xml),
                     $xml = $(xmlDoc),
                     lon = $xml.find("Lon").text();
                 lat = $xml.find("Lat").text();
                 lon = parseFloat(lon);
                 lat = parseFloat(lat);
+                //norm the values from lon lat to canvas size
                 var x = (c.width / 360);
                 x = x * (lon + 180);
                 var y = (c.height / 180);
@@ -34,6 +39,7 @@
                 y = Math.abs(y);
                 lonNorm = x;
                 latNorm = y;
+                //if first time draw circle, else draw line
                 if (isFirst == 0) {
                     isFirst = 1;
                     ctx.beginPath();
